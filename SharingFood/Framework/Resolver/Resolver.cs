@@ -2,6 +2,8 @@
 using Autofac;
 using SharingFood.Services;
 using SharingFood.Views.Login;
+using SharingFood.Views.Main;
+using SharingFood.Views.Register;
 using Xamarin.Forms;
 
 namespace SharingFood.Framework.Resolver
@@ -22,6 +24,10 @@ namespace SharingFood.Framework.Resolver
 
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<EntityService>().As<IEntityService>();
+
+            builder.RegisterType<CryptographyService>().As<ICryptographyService>();
+
             builder.RegisterType<NavigationService>().As<INavigationService>();
 
             builder.RegisterType<DialogService>().As<IDialogService>();
@@ -31,6 +37,12 @@ namespace SharingFood.Framework.Resolver
             builder.RegisterType<Login>();
 
             builder.RegisterType<LoginViewModel>();
+
+            builder.RegisterType<Main>();
+
+            builder.RegisterType<Register>();
+
+            builder.RegisterType<RegisterViewModel>();
 
             _container = builder.Build();
         }

@@ -3,20 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:SharingFood.Views.Login"
+             xmlns:local="clr-namespace:SharingFood.Views.Register"
              mc:Ignorable="d"
-             x:Class="SharingFood.Views.Login.Login"
-             d:BindingContext="{Binding local:LoginViewModel}">
+             x:Class="SharingFood.Views.Register.Register"
+             d:BindingContext="{Binding local:RegisterViewModel}">
     <ContentPage.Content>
         <StackLayout>
             <Entry Placeholder="Email"
                    Text="{Binding Email}"/>
             <Entry Placeholder="Hasło"
-                   Text="{Binding Password}"/>
-            <Button Text="Zaloguj"
-                    Command="{Binding LoginCommand}"/>
-            <Button Text="Zaloguj przy użyciu Facebooka"
-                    Command="{Binding LoginWithFacebookCommand}"/>
+                   Text="{Binding Password}"
+                   IsPassword="True"/>
             <Button Text="Zarejestruj"
                     Command="{Binding RegisterCommand}"/>
         </StackLayout>

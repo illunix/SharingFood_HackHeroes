@@ -7,6 +7,8 @@ using Android.OS;
 using Xamarin.Auth;
 using Android.Runtime;
 using Android.Content.PM;
+using Android.Content;
+using System.IO;
 
 namespace SharingFood.Droid
 {
@@ -23,8 +25,6 @@ namespace SharingFood.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            LoginToFacebook(true);
-
             LoadApplication(new App());
         }
 
@@ -34,17 +34,5 @@ namespace SharingFood.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
-        public void LoginToFacebook(bool allowCancel)
-        {
-            var auth = new OAuth2Authenticator(
-                clientId: "2477957792528851",
-                scope: "",
-                authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
-                redirectUrl: new Uri("https://www.facebook.com/connect/login_success.html"));
-
-            var ui = auth.GetUI(this);
-            StartActivity(ui);
-         }
     }
 }
