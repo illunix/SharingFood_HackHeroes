@@ -28,11 +28,17 @@ namespace SharingFood.Framework.Resolver
 
             builder.RegisterType<CryptographyService>().As<ICryptographyService>();
 
+            builder.RegisterType<GeolocationService>().As<IGeolocationService>();
+
             builder.RegisterType<NavigationService>().As<INavigationService>();
 
             builder.RegisterType<DialogService>().As<IDialogService>();
 
             builder.RegisterType<Resolver>().As<IResolver>();
+
+            builder.RegisterType<Register>();
+
+            builder.RegisterType<RegisterViewModel>();
 
             builder.RegisterType<Login>();
 
@@ -40,9 +46,7 @@ namespace SharingFood.Framework.Resolver
 
             builder.RegisterType<Main>();
 
-            builder.RegisterType<Register>();
-
-            builder.RegisterType<RegisterViewModel>();
+            builder.RegisterType<MainViewModel>();
 
             _container = builder.Build();
         }

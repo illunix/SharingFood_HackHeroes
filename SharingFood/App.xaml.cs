@@ -18,19 +18,13 @@ namespace SharingFood
 
             Resolver.Initialise();
 
-            var login = Resolver.Get<Login>();
-
-            var main = Resolver.Get<Main>();
-
-            var isLoggedIn = EntityService.IsLoggedIn();
-
 #if DEBUG
-            MainPage = new NavigationPage(login);
+            MainPage = new NavigationPage(Resolver.Get<Main>());
 #else
-            if (isLoggedIn == true)
-                MainPage = new NavigationPage(main);
+            if (EntityService.IsLoggedIn() == true)
+                MainPage = new NavigationPage(Resolver.Get<Main>());
             else
-                MainPage = new NavigationPage(login);
+                MainPage = new NavigationPage(Resolver.Get<Login>(););
 #endif
         }
 

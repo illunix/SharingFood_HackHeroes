@@ -12,9 +12,11 @@ namespace SharingFood.Views.Main
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Main : ContentPage
     {
-        public Main()
+        public Main(MainViewModel viewModel)
         {
             InitializeComponent();
+
+            BindingContext = viewModel;
         }
     }
 }

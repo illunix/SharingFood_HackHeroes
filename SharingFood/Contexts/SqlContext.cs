@@ -6,6 +6,7 @@ namespace SharingFood.Contexts
     public class SqlContext : DbContext
     {
         public DbSet<AccountsModel> Accounts { get; set; }
+        public DbSet<PostsModel> Posts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

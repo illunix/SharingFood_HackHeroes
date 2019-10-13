@@ -19,16 +19,13 @@ namespace SharingFood.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (Device.OS == TargetPlatform.iOS)
-            {
+#if __IOS__
                 dbPath = Path.Combine(System.Environment.GetFolderPath
                     (System.Environment.SpecialFolder.MyDocuments), "..", "Library", "sharingfood.db");
-            }
-            else
-            {
+#else
                 dbPath = Path.Combine(System.Environment.GetFolderPath
                     (System.Environment.SpecialFolder.Personal), "sharingfood.db");
-            }
+#endif
 
             optionsBuilder.UseSqlite($"Filename={dbPath}");
         }

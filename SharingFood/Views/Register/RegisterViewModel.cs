@@ -47,7 +47,7 @@ namespace SharingFood.Views.Register
             {
                 await Task.Run(() => _entityService.Register(Email, _cryptographyService.Encode(Password)));
                 await Task.Run(() => _entityService.SetIsLoggedIn());
-                await _navigationService.NaviagteTo(new Main.Main());
+                await _navigationService.NaviagteToMain();
             }
         });
 

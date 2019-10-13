@@ -3,13 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SharingFood.Views.Main"
+             xmlns:Controls="clr-namespace:SharingFood.Controls"
              mc:Ignorable="d"
-             x:Class="SharingFood.Views.Main.Main">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="SharingFood.Views.Main.Main"
+             NavigationPage.HasNavigationBar="False"
+             d:BindingContext="{Binding local:MainViewModel}">
+    <ListView ItemsSource="{Binding Post}"
+              CachingStrategy="RecycleElement"
+              HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout>
+                        <Controls:XEntry Text="{Binding Title}"
+                               TextColor="Black"
+                               FontSize="Large"
+                               FontAttributes="Bold"/>
+                        <ImageButton Source="{Binding PostImage}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

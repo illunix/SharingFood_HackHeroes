@@ -54,7 +54,8 @@ namespace SharingFood.Views.Login
             else
             {
                 await Task.Run(() => _entityService.SetIsLoggedIn());
-                await _navigationService.NaviagteTo(new Main.Main());
+                await Task.Run(() => _entityService.SetUserEntry(Email));
+                await _navigationService.NaviagteToMain();
             }
         });
 
@@ -86,7 +87,8 @@ namespace SharingFood.Views.Login
                         await Task.Run(() => _entityService.Register(fbUser["email"], null));
 
                     await Task.Run(() => _entityService.SetIsLoggedIn());
-                    await _navigationService.NaviagteTo(new Main.Main());
+                    await Task.Run(() => _entityService.SetUserEntry(fbUser["email"]));
+                    await _navigationService.NaviagteToMain();
                 }
             };
 
