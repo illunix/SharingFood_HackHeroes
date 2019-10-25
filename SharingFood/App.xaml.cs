@@ -1,12 +1,9 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using SharingFood.Framework.Resolver;
-using SharingFood.Views.Login;
+using SharingFood.Views.Post;
 using SharingFood.Views.Main;
+using SharingFood.Views.Login;
 using SharingFood.Services;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace SharingFood
 {
@@ -20,11 +17,12 @@ namespace SharingFood
 
 #if DEBUG
             MainPage = new NavigationPage(Resolver.Get<Main>());
+
 #else
             if (EntityService.IsLoggedIn() == true)
                 MainPage = new NavigationPage(Resolver.Get<Main>());
             else
-                MainPage = new NavigationPage(Resolver.Get<Login>(););
+                MainPage = new NavigationPage(Resolver.Get<Login>());
 #endif
         }
 

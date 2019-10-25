@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharingFood.Framework.Resolver;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SharingFood.Views.Main
+namespace SharingFood.Views.Post
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Main : ContentPage
+    public partial class PostCreate : ContentPage
     {
-        public Main(MainViewModel viewModel)
+        public PostCreate(PostCreateViewModel viewModel)
         {
             InitializeComponent();
 
             BindingContext = viewModel;
-
-            Appearing += async (sender, e) => await viewModel.InitializeAsync();
         }
     }
 }

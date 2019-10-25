@@ -26,6 +26,8 @@ namespace SharingFood.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App());
+
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

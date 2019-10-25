@@ -37,16 +37,15 @@ namespace SharingFood.Views.Register
 
         public ICommand RegisterCommand => new Command(async () =>
         {
-            bool emailExists = await Task.Run(() => _entityService.CheckIfEmailExists(Email));
-
             if (IsValidEmail(Email) == false || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 await _dialogService.ShowError("Sprawdź wprowadzone informacje i spróbuj ponownie.");
-            else if (_entityService.CheckIfEmailExists(Email) == true)
+            else if (_entityService.EmailExists(Email) == true)
                 await _dialogService.ShowError("Wprowadzony email już istnieje");
             else
             {
-                await Task.Run(() => _entityService.Register(Email, _cryptographyService.Encode(Password)));
-                await Task.Run(() => _entityService.SetIsLoggedIn());
+                await Task.Run(() => _entityService.Register(Email, _cryptographyService.ToSHA1(Password)));
+                await Task.Run(() => _entityService.SetUserEntry(Email));
+                await Task.Run(() => _entityService.SetIsLoggedIn(true));
                 await _navigationService.NaviagteToMain();
             }
         });

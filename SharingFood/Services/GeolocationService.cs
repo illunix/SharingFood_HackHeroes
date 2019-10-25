@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharingFood.Models;
 using RestSharp;
+using System.Net.Http;
 
 namespace SharingFood.Services
 {
@@ -17,32 +18,43 @@ namespace SharingFood.Services
 
     public class GeolocationService : IGeolocationService
     {
+        static readonly HttpClient _client = new HttpClient(new HttpClientHandler { UseProxy = false });
+
         public string GetCity()
         {
-            var client = new WebClient();
+            var json = string.Empty;
 
-            var result = client.DownloadString($"https://geo.ipify.org/api/v1?apiKey=at_hXJM5D8w2BpfgyipxoH0xqlUw5tmt");
+            Task.Run(async () =>
+            {
+                json = await _client.GetStringAsync("https://geo.ipify.org/api/v1?apiKey=at_hXJM5D8w2BpfgyipxoH0xqlUw5tmt");
+            }).Wait();
 
-            GeolocationModel model = JsonConvert.DeserializeObject<GeolocationModel>(result);
+            GeolocationModel model = JsonConvert.DeserializeObject<GeolocationModel>(json);
 
-            return model.City;
+            string unicode = model.location.City;
+
+            return Uri.UnescapeDataString(unicode);
         }
 
         public List<string> GetNearCities(int radius)
         {
-            var client = new RestClient($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities/Q60/nearbyCities?radius={radius}");
+            var client = new WebClient();
 
-            var request = new RestRequest(Method.GET);
+            var result = client.DownloadString("https://wft-geo-db.p.rapidapi.com/v1/geo/cities/Q270/nearbyCities?radius=2");
 
-            request.AddHeader("x-rapidapi-host", "wft-geo-db.p.rapidapi.com");
+            client.Headers.Add("x-rapidapi-host", "wft-geo-db.p.rapidapi.com");
+            client.Headers.Add("x-rapidapi-key", "29d3738d70msh81a0f7b28c875e5p1086efjsn545dee79a112");
 
-            request.AddHeader("x-rapidapi-key", "");
+            GeolocationModel model = JsonConvert.DeserializeObject<GeolocationModel>(result);
 
-            IRestResponse response = client.Execute(request);
+            var list = new List<string>();
 
-            GeolocationModel model = JsonConvert.DeserializeObject<GeolocationModel>(response.Content);
+            foreach (var d in model.data)
+            {
+                list.Add(d.City);
+            }
 
-            return model.city;
+            return list;
         }
     }
 }

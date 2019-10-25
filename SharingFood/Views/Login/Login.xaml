@@ -6,19 +6,44 @@
              xmlns:local="clr-namespace:SharingFood.Views.Login"
              mc:Ignorable="d"
              x:Class="SharingFood.Views.Login.Login"
-             d:BindingContext="{Binding local:LoginViewModel}">
+             d:BindingContext="{Binding local:LoginViewModel}"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry Placeholder="Email"
-                   Text="{Binding Email}"/>
-            <Entry Placeholder="Hasło"
-                   Text="{Binding Password}"/>
-            <Button Text="Zaloguj"
-                    Command="{Binding LoginCommand}"/>
-            <Button Text="Zaloguj przy użyciu Facebooka"
-                    Command="{Binding LoginWithFacebookCommand}"/>
-            <Button Text="Zarejestruj"
-                    Command="{Binding RegisterCommand}"/>
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Entry Placeholder="Email"
+                       Text="{Binding Email}"
+                       Grid.Row="0"/>
+                <Entry Placeholder="Hasło"
+                       Text="{Binding Password}"
+                       IsPassword="True"
+                       Grid.Row="1"/>
+                <Button Text="Zaloguj"
+                        Command="{Binding LoginCommand}"
+                        Grid.Row="2"/>
+                <Button Text="Zaloguj przy użyciu Facebooka"
+                        Command="{Binding LoginWithFacebookCommand}"
+                        Grid.Row="3"/>
+                <Button Text="Zarejestruj"
+                        Command="{Binding RegisterCommand}"
+                        Grid.Row="4"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <ActivityIndicator Color="Black" 
+                                   Scale="0.1"
+                                   IsRunning="{Binding IsLoadingData}" />
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

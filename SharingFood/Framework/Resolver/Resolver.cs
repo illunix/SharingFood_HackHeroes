@@ -1,9 +1,13 @@
 ﻿using System;
 using Autofac;
+using SharingFood.Helpers;
 using SharingFood.Services;
+using SharingFood.Views.Filter;
 using SharingFood.Views.Login;
 using SharingFood.Views.Main;
+using SharingFood.Views.Post;
 using SharingFood.Views.Register;
+using SharingFood.Views.User;
 using Xamarin.Forms;
 
 namespace SharingFood.Framework.Resolver
@@ -34,7 +38,11 @@ namespace SharingFood.Framework.Resolver
 
             builder.RegisterType<DialogService>().As<IDialogService>();
 
+            builder.RegisterType<MessengerService>().As<IMessengerService>();
+
             builder.RegisterType<Resolver>().As<IResolver>();
+
+            builder.RegisterType<ShellManager>().As<IShellManager>();
 
             builder.RegisterType<Register>();
 
@@ -47,6 +55,30 @@ namespace SharingFood.Framework.Resolver
             builder.RegisterType<Main>();
 
             builder.RegisterType<MainViewModel>();
+
+            builder.RegisterType<PostInfo>();
+
+            builder.RegisterType<PostCreate>();
+
+            builder.RegisterType<PostCreateViewModel>();
+
+            builder.RegisterType<PostsToAccept>();
+
+            builder.RegisterType<PostsToAcceptViewModel>();
+
+            builder.RegisterType<User>();
+
+            builder.RegisterType<UserViewModel>();
+
+            builder.RegisterType<UserPosts>();
+
+            builder.RegisterType<UserPostsViewModel>();
+
+            builder.RegisterType<UserContactViewModel>();
+
+            builder.RegisterType<Filter>();
+
+            builder.RegisterType<FilterViewModel>();
 
             _container = builder.Build();
         }

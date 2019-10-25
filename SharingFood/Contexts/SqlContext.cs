@@ -11,7 +11,7 @@ namespace SharingFood.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Server=tcp:sharingfood.database.windows.net,1433;Initial Catalog=sharingfood;Persist Security Info=False;User ID=developer;Password=gFLFW115!g;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                @"Server=tcp:illunix.database.windows.net,1433;Initial Catalog=sharingfood;Persist Security Info=False;User ID=developer;Password=8FqypJ7QRnw4rG6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
     }
 }

@@ -7,6 +7,7 @@ namespace SharingFood.Models
         [Key]
         public int entry { get; set; }
         public int user_entry { get; set; }
+        public string email { get; set; }
         public bool isLogged { get; set; }
     }
 }

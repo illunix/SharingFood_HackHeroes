@@ -4,10 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Auth;
 using System.Json;
 using SharingFood.Services;
-using Xamarin.Forms.PlatformConfiguration;
 using System.Threading.Tasks;
-using System.Text;
-using SharingFood.Views.Main;
 using SharingFood.Framework.Resolver;
 
 namespace SharingFood.Views.Login
@@ -18,18 +15,21 @@ namespace SharingFood.Views.Login
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
         private readonly ICryptographyService _cryptographyService;
+        private readonly IMessengerService _messengerService;
 
         private bool _isAuhtenticated;
 
         private string _email;
         private string _password;
 
-        public LoginViewModel(IEntityService entityService, INavigationService navigationService, IDialogService dialogService, ICryptographyService cryptographyService)
+        public LoginViewModel(IEntityService entityService, INavigationService navigationService, IDialogService dialogService,
+            ICryptographyService cryptographyService, IMessengerService messengerService)
         {
             _entityService = entityService;
             _navigationService = navigationService;
             _dialogService = dialogService;
             _cryptographyService = cryptographyService;
+            _messengerService = messengerService;
         }
 
         public string Email
@@ -47,14 +47,15 @@ namespace SharingFood.Views.Login
         public ICommand LoginCommand => new Command(async () =>
         {
             var email = await Task.Run(() => _entityService.GetLoginEmail(Email));
-            var password = await Task.Run(() => _entityService.GetLoginPassword(_cryptographyService.Encode(Password)));
+            var password = await Task.Run(() => _entityService.GetLoginPassword(_cryptographyService.ToSHA1(Password)));
 
             if (email == null || password == null || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 await _dialogService.ShowError("Sprawdź wprowadzone informacje i spróbuj ponownie.");
             else
             {
-                await Task.Run(() => _entityService.SetIsLoggedIn());
                 await Task.Run(() => _entityService.SetUserEntry(Email));
+                await Task.Run(() => _entityService.SetUserEmail(Email));
+                await Task.Run(() => _entityService.SetIsLoggedIn(true));
                 await _navigationService.NaviagteToMain();
             }
         });
@@ -83,11 +84,12 @@ namespace SharingFood.Views.Login
 
                     var fbUser = JsonValue.Parse(fbResponse.GetResponseText());
 
-                    if (_entityService.CheckIfEmailExists(fbUser["email"]) == false)
+                    if (_entityService.EmailExists(fbUser["email"]) == false)
                         await Task.Run(() => _entityService.Register(fbUser["email"], null));
 
-                    await Task.Run(() => _entityService.SetIsLoggedIn());
                     await Task.Run(() => _entityService.SetUserEntry(fbUser["email"]));
+                    await Task.Run(() => _entityService.SetUserEmail(Email));
+                    await Task.Run(() => _entityService.SetIsLoggedIn(true));
                     await _navigationService.NaviagteToMain();
                 }
             };

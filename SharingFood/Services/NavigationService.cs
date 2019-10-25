@@ -9,7 +9,6 @@ namespace SharingFood.Services
     {
         Task NaviagteTo(ContentPage page);
         Task NaviagteToMain();
-
     }
 
     public class NavigationService : INavigationService

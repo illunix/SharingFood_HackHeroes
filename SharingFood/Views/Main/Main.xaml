@@ -9,21 +9,105 @@
              x:Class="SharingFood.Views.Main.Main"
              NavigationPage.HasNavigationBar="False"
              d:BindingContext="{Binding local:MainViewModel}">
-    <ListView ItemsSource="{Binding Post}"
-              CachingStrategy="RecycleElement"
-              HasUnevenRows="True">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout>
-                        <Controls:XEntry Text="{Binding Title}"
-                               TextColor="Black"
-                               FontSize="Large"
-                               FontAttributes="Bold"/>
-                        <ImageButton Source="{Binding PostImage}"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <ListView ItemsSource="{Binding Post}"
+                          CachingStrategy="RecycleElement"
+                          SelectionMode="None"
+                          HasUnevenRows="true">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell IsEnabled="False">
+                                <StackLayout>
+                                    <Label Text="{Binding Title}"
+                                           TextColor="Black"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           Margin="5, 0, 0, 0"/>
+
+                                    <ImageButton Source="{Binding PostImage}"
+                                           Aspect="AspectFill" 
+                                           Margin="0, 0, 0, 20" 
+                                           Command="{Binding PostCommand}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="2" BackgroundColor="#e3e3e3" HeightRequest="50">
+                <Grid IsVisible="{Binding IsUser}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Source="filter.png" 
+                                 Command="{Binding FilterCommand}" 
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center" 
+                                 Grid.Column="0" 
+                                 Opacity="0.6" />
+
+                    <ImageButton Source="add.png" 
+                                 Command="{Binding PostCreateCommand}" 
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center"
+                                 Grid.Column="1" 
+                                 Opacity="0.6" />
+
+                    <ImageButton Source="user.png" 
+                                 Command="{Binding UserCommand}"
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center" 
+                                 Grid.Column="2" 
+                                 Opacity="0.6" />
+                </Grid>
+                <Grid IsVisible="{Binding IsMod}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Source="filter.png" 
+                                 Command="{Binding FilterCommand}" 
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center" 
+                                 Grid.Column="0" 
+                                 Opacity="0.6" />
+
+                    <ImageButton Source="add.png" 
+                                 Command="{Binding PostCreateCommand}" 
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center" 
+                                 Grid.Column="1" 
+                                 Opacity="0.6" />
+
+                    <ImageButton Source="user.png" 
+                                 Command="{Binding UserCommand}"
+                                 VerticalOptions="Center" 
+                                 HorizontalOptions="Center" 
+                                 Grid.Column="2"
+                                 Opacity="0.6" />
+
+                    <ImageButton Source="checkmark.png"
+                                 Command="{Binding PostsToAcceptCommand}"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Grid.Column="3"
+                                 Opacity="0.6" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
