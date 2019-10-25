@@ -18,7 +18,12 @@ namespace SharingFood.Views.Main
 
             BindingContext = viewModel;
 
-            Appearing += async (sender, e) => await viewModel.InitializeAsync();
+            Task.Run(async () => viewModel.InitializeAsync());
+
+            var timer = new System.Threading.Timer((e) =>
+            {
+                Task.Run(async () => await viewModel.CheckForNewPosts());
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
         }
     }
 }

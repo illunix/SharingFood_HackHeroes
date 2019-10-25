@@ -34,12 +34,12 @@ namespace SharingFood.Helpers
 
     public class PostMessage
     {
-        public PostMessage(string postImageBase64)
+        public PostMessage(string post)
         {
-            PostImageBase64 = postImageBase64;
+            Post = post;
         }
 
-        public string PostImageBase64 { get; }
+        public string Post { get; }
     }
 
     public class CityMessage

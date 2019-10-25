@@ -3,13 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SharingFood.Views.Post"
              mc:Ignorable="d"
-             x:Class="SharingFood.Views.Post.PostInfo">
+             x:Class="SharingFood.Views.Post.PostInfo"
+             d:BindingContext="{Binding local:PostInfoViewModel}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Button Text="Test"
+                    TextColor="Black"
+                    Command="{Binding TestCommand}"/>
+            <Button Text="Zgłoś"
+                    TextColor="Black"
+                    Command="{Binding ReportCommand}"
+                    IsVisible="{Binding IsUser}"/>
+            <Button Text="Usuń post"
+                    TextColor="Black"
+                    Command="{Binding DeleteCommand}"
+                    IsVisible="{Binding IsMod}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

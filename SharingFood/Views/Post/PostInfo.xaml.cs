@@ -12,9 +12,13 @@ namespace SharingFood.Views.Post
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PostInfo : ContentPage
     {
-        public PostInfo()
+        public PostInfo(PostInfoViewModel viewModel)
         {
             InitializeComponent();
+
+            BindingContext = viewModel;
+
+            Appearing += async (sender, e) => await viewModel.InitializeAsync();
         }
     }
 }

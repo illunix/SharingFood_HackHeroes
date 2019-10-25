@@ -11,7 +11,7 @@ namespace SharingFood.Services
     public interface IEntityService
     {
         bool EmailExists(string email);
-        void Register(string email, string password);
+        void Register(string email, string password, string phoneNumber);
         string GetLoginEmail(string email);
         string GetLoginPassword(string password);
         void SetIsLoggedIn(bool isLogged);
@@ -25,6 +25,7 @@ namespace SharingFood.Services
         List<string> GetUserPosts(int entry);
         List<string> GetPostsToAccept();
         string GetPostImage(string post);
+        string GetPostDescription(string post);
         void PostCreate(int accountEntry, string title, string description, string city, string image);
         int GetPostEntry(string post);
         string GetPostTitle(int entry);
@@ -47,11 +48,11 @@ namespace SharingFood.Services
             }
         }
 
-        public void Register(string email, string password)
+        public void Register(string email, string password, string phoneNumber)
         {
             using (var db = new SqlContext())
             {
-                var account = new AccountsModel { email = email, password = password, isMod = false };
+                var account = new AccountsModel { email = email, password = password, phoneNumber = phoneNumber, isMod = false };
 
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -214,6 +215,14 @@ namespace SharingFood.Services
             using (var db = new SqlContext())
             {
                 return db.Posts.Where(x => x.title == post).Select(x => x.image).FirstOrDefault();
+            }
+        }
+
+        public string GetPostDescription(string post)
+        {
+            using (var db = new SqlContext())
+            {
+                return db.Posts.Where(x => x.title == post).Select(x => x.description).FirstOrDefault();
             }
         }
 

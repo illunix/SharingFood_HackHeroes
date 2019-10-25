@@ -6,6 +6,7 @@ using System.Json;
 using SharingFood.Services;
 using System.Threading.Tasks;
 using SharingFood.Framework.Resolver;
+using SharingFood.Helpers;
 
 namespace SharingFood.Views.Login
 {
@@ -15,21 +16,35 @@ namespace SharingFood.Views.Login
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
         private readonly ICryptographyService _cryptographyService;
+        private readonly IShellManager _shellManager;
         private readonly IMessengerService _messengerService;
+        private readonly IResolver _resolver;
 
-        private bool _isAuhtenticated;
+        private bool _isLoadingData;
 
         private string _email;
         private string _password;
 
+        private bool _isAuhtenticated;
+
         public LoginViewModel(IEntityService entityService, INavigationService navigationService, IDialogService dialogService,
-            ICryptographyService cryptographyService, IMessengerService messengerService)
+            ICryptographyService cryptographyService, IShellManager shellManager, IMessengerService messengerService, IResolver resolver)
         {
             _entityService = entityService;
             _navigationService = navigationService;
             _dialogService = dialogService;
             _cryptographyService = cryptographyService;
+            _shellManager = shellManager;
             _messengerService = messengerService;
+            _resolver = resolver;
+
+            messengerService.Register<LoadingDataMessage>(this, msg => IsLoadingData = msg.IsLoadingData);
+        }
+
+        public bool IsLoadingData
+        {
+            get => _isLoadingData;
+            set => Set(ref _isLoadingData, value);
         }
 
         public string Email
@@ -46,17 +61,23 @@ namespace SharingFood.Views.Login
 
         public ICommand LoginCommand => new Command(async () =>
         {
+            _shellManager.SetLoadingData(true);
+
             var email = await Task.Run(() => _entityService.GetLoginEmail(Email));
             var password = await Task.Run(() => _entityService.GetLoginPassword(_cryptographyService.ToSHA1(Password)));
 
             if (email == null || password == null || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            {
+                _shellManager.SetLoadingData(false);
                 await _dialogService.ShowError("Sprawdź wprowadzone informacje i spróbuj ponownie.");
+            }
             else
             {
                 await Task.Run(() => _entityService.SetUserEntry(Email));
                 await Task.Run(() => _entityService.SetUserEmail(Email));
                 await Task.Run(() => _entityService.SetIsLoggedIn(true));
                 await _navigationService.NaviagteToMain();
+                _shellManager.SetLoadingData(false);
             }
         });
 
@@ -67,6 +88,8 @@ namespace SharingFood.Views.Login
                 scope: "email",
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
                 redirectUrl: new Uri("https://www.facebook.com/connect/login_success.html"));
+
+            _shellManager.SetLoadingData(true);
 
             auth.Completed += async (s, eventArgs) =>
             {
@@ -85,11 +108,12 @@ namespace SharingFood.Views.Login
                     var fbUser = JsonValue.Parse(fbResponse.GetResponseText());
 
                     if (_entityService.EmailExists(fbUser["email"]) == false)
-                        await Task.Run(() => _entityService.Register(fbUser["email"], null));
+                        await Task.Run(() => _entityService.Register(fbUser["email"], null, ""));
 
                     await Task.Run(() => _entityService.SetUserEntry(fbUser["email"]));
                     await Task.Run(() => _entityService.SetUserEmail(Email));
                     await Task.Run(() => _entityService.SetIsLoggedIn(true));
+                    _shellManager.SetLoadingData(false);
                     await _navigationService.NaviagteToMain();
                 }
             };
@@ -99,8 +123,7 @@ namespace SharingFood.Views.Login
 
         public ICommand RegisterCommand => new Command(async () =>
         {
-            var register = Resolver.Get<Register.Register>();
-            await _navigationService.NaviagteTo(register);
+            await _navigationService.NaviagteTo(_resolver.Get<Register.Register>());
         });
     }
 }

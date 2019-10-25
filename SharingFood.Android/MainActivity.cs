@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Content.PM;
 using Android.Content;
 using System.IO;
+using Xamarin.Forms;
 
 namespace SharingFood.Droid
 {

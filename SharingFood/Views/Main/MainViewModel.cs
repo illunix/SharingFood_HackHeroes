@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Windows.Input;
@@ -26,6 +27,8 @@ namespace SharingFood.Views.Main
 
         private ObservableCollection<Post> _post;
 
+        private bool _showRefreshButton;
+
         public MainViewModel(IEntityService entityService, ICryptographyService cryptographyService, IGeolocationService geolocationService, 
             INavigationService navigationService, IDialogService dialogService, IResolver resolver, IMessengerService messengerService)
         {
@@ -42,19 +45,15 @@ namespace SharingFood.Views.Main
 
             _post = new ObservableCollection<Post>();
 
-            _post.Clear();
+            PostsCount = entityService.GetPosts(_geolocationService.GetCity()).Count;
         }
+
+        public int PostsCount;
 
         public bool IsLoadingData
         {
             get => _isLoadingData;
             set => Set(ref _isLoadingData, value);
-        }
-
-        public ObservableCollection<Post> Post
-        {
-            get => _post;
-            set => Set(ref _post, value);
         }
 
         public bool IsUser
@@ -69,52 +68,97 @@ namespace SharingFood.Views.Main
             set => Set(ref _isMod, value);
         }
 
+        public ObservableCollection<Post> Post
+        {
+            get => _post;
+            set => Set(ref _post, value);
+        }
+
+        public bool ShowRefreshButton
+        {
+            get => _showRefreshButton;
+            set => Set(ref _showRefreshButton, value);
+        }
+
         public async Task InitializeAsync()
         {
             foreach (var post in _entityService.GetPosts(_geolocationService.GetCity()))
             {
-                _post.Add(new Post { Title = post });
-                _post.Add(new Post { PostImage = _cryptographyService.FromBase64String(_entityService.GetPostImage(post)) });
+                _post.Add(new Post
+                {
+                    Title = post,
+                    PostImage = _cryptographyService.FromBase64String(_entityService.GetPostImage(post)),
+                    Description = _entityService.GetPostDescription(post)
+                });
             }
 
             if (_entityService.UserIsMod(_entityService.GetUserEmail()))
                 IsMod = true;
             else
                 IsUser = true;
+
+            ShowRefreshButton = false;
         }
+
+        public async Task CheckForNewPosts()
+        {
+            if (PostsCount < _entityService.GetPosts(_geolocationService.GetCity()).Count)
+            {
+                ShowRefreshButton = true;
+            }
+            else
+            {
+                ShowRefreshButton = true;
+            }
+        }
+
+        public ICommand RefreshPostsCommand => new Command(async () =>
+        {
+            PostsCount = _entityService.GetPosts(_geolocationService.GetCity()).Count;
+
+            _post.Clear();
+
+            foreach (var post in _entityService.GetPosts(_geolocationService.GetCity()))
+            {
+                _post.Add(new Post
+                {
+                    Title = post,
+                    PostImage = _cryptographyService.FromBase64String(_entityService.GetPostImage(post)),
+                    Description = _entityService.GetPostDescription(post)
+                });
+            }
+
+            ShowRefreshButton = false;
+        });
 
         public string PostImageBase64 { get; set; }
 
         public ICommand PostCommand => new Command<object>(async obj =>
         {
-            _dialogService.ShowMessage("Works");
+            if (obj is string post)
+            {
+                await _navigationService.NaviagteTo(_resolver.Get<PostInfo>());
+                _messengerService.Send(new PostMessage(post));
+            }
         });
 
         public ICommand FilterCommand => new Command(async () =>
         {
-            _post.Clear();
-
             await _navigationService.NaviagteTo(_resolver.Get<Filter.Filter>());
         });
 
         public ICommand PostCreateCommand => new Command(async () =>
         {
-            _post.Clear();
-
             await _navigationService.NaviagteTo(_resolver.Get<PostCreate>());
         });
 
         public ICommand UserCommand => new Command(async () =>
         {
-            _post.Clear();
-
             await _navigationService.NaviagteTo(_resolver.Get<User.User>());
         });
 
         public ICommand PostsToAcceptCommand => new Command(async () =>
         {
-            _post.Clear();
-
             await _navigationService.NaviagteTo(_resolver.Get<PostsToAccept>());
         });
 
@@ -134,5 +178,6 @@ namespace SharingFood.Views.Main
     {
         public string Title { get; set; }
         public ImageSource PostImage { get; set; }
+        public string Description { get; set; }
     }
 }

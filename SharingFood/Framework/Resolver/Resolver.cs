@@ -58,6 +58,8 @@ namespace SharingFood.Framework.Resolver
 
             builder.RegisterType<PostInfo>();
 
+            builder.RegisterType<PostInfoViewModel>();
+
             builder.RegisterType<PostCreate>();
 
             builder.RegisterType<PostCreateViewModel>();

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:SharingFood.Views.Login"
+             xmlns:controls="clr-namespace:SharingFood.Controls"
              mc:Ignorable="d"
              x:Class="SharingFood.Views.Login.Login"
              d:BindingContext="{Binding local:LoginViewModel}"
@@ -11,7 +12,6 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -21,28 +21,65 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Entry Placeholder="Email"
-                       Text="{Binding Email}"
-                       Grid.Row="0"/>
-                <Entry Placeholder="Hasło"
-                       Text="{Binding Password}"
-                       IsPassword="True"
-                       Grid.Row="1"/>
-                <Button Text="Zaloguj"
-                        Command="{Binding LoginCommand}"
-                        Grid.Row="2"/>
-                <Button Text="Zaloguj przy użyciu Facebooka"
-                        Command="{Binding LoginWithFacebookCommand}"
-                        Grid.Row="3"/>
-                <Button Text="Zarejestruj"
-                        Command="{Binding RegisterCommand}"
-                        Grid.Row="4"/>
-            </Grid>
-            <Grid Grid.Row="1">
+                <Label Text="SharingFood" 
+                       FontSize="40"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Grid.Row="0"
+                       Margin="85, 40, 85, 10"/>
+
+                <controls:XEntry BackgroundColor="#f1f2f4"
+                                 Placeholder="Email"
+                                 Text="{Binding Email}"
+                                 TextColor="Black"
+                                 Grid.Row="0"
+                                 Margin="35, 200, 35, 0"/>
+
+                <controls:XEntry BackgroundColor="#f1f2f4"
+                                 Placeholder="Hasło"
+                                 Text="{Binding Password}"
+                                 TextColor="Black"
+                                 IsPassword="True"
+                                 Grid.Row="1"
+                                 Margin="35, 10, 35, 5"/>
+
+                <Button BackgroundColor="Black"
+                        Text="Zaloguj"
+                        TextColor="White"
+                        Scale="0.9"
+                        BorderRadius="20"
+                        Grid.Row="2"
+                        Margin="91, 10, 90, 5"
+                        Command="{Binding LoginCommand}" />
+
+                <Label Text="Zapomnniałem hasła"
+                       TextColor="Black"
+                       Grid.Row="3"
+                       Margin="141, -13, 140, 0"/>
+
                 <ActivityIndicator Color="Black" 
-                                   Scale="0.1"
-                                   IsRunning="{Binding IsLoadingData}" />
+                                   IsRunning="{Binding IsLoadingData}" 
+                                   Scale="0.6"
+                                   Grid.Row="4"/>
+
+                <Button Text="Zaloguj przy użyciu Facebooka"
+                        TextColor="White"
+                        BackgroundColor="#3b5998"
+                        BorderRadius="6"
+                        Grid.Row="5"
+                        Margin="35, 40, 35, 5"
+                        Command="{Binding LoginWithFacebookCommand}" />
+
+                <Button Text="Zarejestruj"
+                        TextColor="Black"
+                        BorderRadius="6"
+                        Grid.Row="6"
+                        Margin="35, 10, 35, 5"
+                        Command="{Binding RegisterCommand}" />
             </Grid>
         </Grid>
     </ContentPage.Content>

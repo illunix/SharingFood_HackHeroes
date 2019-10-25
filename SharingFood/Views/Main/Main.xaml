@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Name="Page"
+            xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +14,8 @@
         <Grid BackgroundColor="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -24,24 +26,51 @@
                           HasUnevenRows="true">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell IsEnabled="False">
-                                <StackLayout>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
                                     <Label Text="{Binding Title}"
                                            TextColor="Black"
                                            FontAttributes="Bold"
                                            FontSize="Medium"
-                                           Margin="5, 0, 0, 0"/>
+                                           Grid.Row="0"
+                                           Margin="3, 0, 0, 0" />
 
                                     <ImageButton Source="{Binding PostImage}"
                                            Aspect="AspectFill" 
-                                           Margin="0, 0, 0, 20" 
-                                           Command="{Binding PostCommand}"/>
-                                </StackLayout>
+                                           Margin="0, 0, 0, 0" 
+                                           Grid.Row="1"
+                                           Command="{Binding BindingContext.PostCommand, Source={x:Reference Page}}"
+                                           CommandParameter="{Binding Title}"/>
+
+                                        <Label Text="{Binding Description}"
+                                           TextColor="Black"
+                                           FontSize="15"
+                                           Opacity="0.6"
+                                           Grid.Row="2"
+                                           Margin="3, 0, 0, 20" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
+            <Button BackgroundColor="#e3e3e3"
+                    Text="Nowe posty"
+                    TextColor="Black"
+                    Scale="0.9"
+                    BorderRadius="20"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Row="1"
+                    Margin="50, 0, 50, 450"
+                    IsVisible="{Binding ShowRefreshButton}"
+                    Command="{Binding RefreshPostsCommand}"/>
             <Grid Grid.Row="2" BackgroundColor="#e3e3e3" HeightRequest="50">
                 <Grid IsVisible="{Binding IsUser}">
                     <Grid.ColumnDefinitions>

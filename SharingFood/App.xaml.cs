@@ -4,6 +4,7 @@ using SharingFood.Views.Post;
 using SharingFood.Views.Main;
 using SharingFood.Views.Login;
 using SharingFood.Services;
+using SharingFood.Views.Register;
 
 namespace SharingFood
 {
@@ -16,7 +17,7 @@ namespace SharingFood
             Resolver.Initialise();
 
 #if DEBUG
-            MainPage = new NavigationPage(Resolver.Get<Main>());
+            MainPage = new NavigationPage(Resolver.Get<Login>());
 
 #else
             if (EntityService.IsLoggedIn() == true)
