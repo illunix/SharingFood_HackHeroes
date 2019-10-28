@@ -1,11 +1,24 @@
+
 # SharingFood
 Jest to aplikacja umożliwiająca dzielenie się jedzeniem jak sama nazwa wskazuje. 
-Polega ona na tym że robi się zdjęcie danego jedzenia i postuje się na tej aplikacji, następnie dana osoba może przyjść i odebrać te jedzenie od osoby wystawiającej ogłoszenie. 
+Polega ona na tym że robi się zdjęcie danego jedzenia i postuj się na tej aplikacji, następnie dana osoba może przyjść i odebrać te jedzenie od osoby wystawiającej ogłoszenie. 
 
 Załóżmy taki scenariusz, zamawiam ze znajomymi pizze, po zjedzeniu iluś tam kawałków zostaje połowa, każdy w gronie znajomych mówi że już nie będzie jadł i ja tak samo nie będę, ja w takim momencie odpalam aplikację SharingFood na telefonie robię zdjęcie pozostałych kawałków pizzy i klikam wystaw ogłoszenie, zamiast wyrzucać go do śmieci. Po 10 minutach przychodzi do mnie dziewczyna po odbiór tej pizzy. Ja jestem zadowolony bo mogłem się podzielić z kimś posiłkiem i ta pani jest zadowolona bo będzie mogła zjeść pizze i zaoszczędzić przy tym.
 
+# Instalacja
+Otwórz projekt w [Visual Studio 2019](https://visualstudio.microsoft.com/).
+Skonfiguruj swój emulator androida następnie skompiluj projekt w trybie debugowania, wersja na IOS możliwe że nie działa.
+
+Aplikacja sama w sobie jest mega prosta w użytku, strona logowania -> strona główna (tam gdzie są posty).
+Navigation bar, trzy przyciski. 
+Pierwszy służy do filtrowania postów w zależności jakie miasto się wpisze w wyszukiwarkę. Ma tam być jeszcze funkcja w kodzie bodajże jest to ``GetNearCities`` która umożliwia przesuwanie paskiem w celu zmieniania odległości miast w naszym okręgu by właśnie z tych miast też mieć ogłoszenia, nie stety tego nie zaimplementowałem w 100% ponieważ nie miałem funduszy na dokumentacje [GeoDB](https://rapidapi.com/wirefreethought/api/geodb-cities) która właśnie umożliwia pokazywanie miast w pobliżu. 
+
+Drugi słóży do dodawania postów, trzeba podać tytuł ogłoszenia, opis (nie jest wymagany) i dodanie zdjęcia, jak narazie jest support tylko na 1 zdjęcie. T
+
+Trzeci służy do wyświetlania panelu użytkownika gdzie ma takie opcje jak: wyloguj lub zobacz moje posty. Nie wiem czy moje posty w tej wersji działają w każdym bądź razie w wersji która jest robiona ciągle to działa. 
+
 # Dlaczego moim zdaniem jest to problem globalny?
-Moim zdaniem gdy rozprzestrzeni się taką aplikację na cały świat będzie to rozwiązywało problemy globalne takie jak brak pieniędzy lub brak żywności. Powinniśmy zaczynać od mniejszych/większych miast lub kraji bo wtedy rozwiązuje to problem lokalny a nie globalny, gdy uzbiera się parę państw które będą korzystały z tej aplikacji, będzie rozwiązywać to problem globalny. Uważam że taki sposób podejścia do rozprzestrzeniania się tej aplikacji jest dobry. Zaczęcie od samej Polski będzie już dużym sukcesem ponieważ statystyczny polak marnuje 235 kg żywności w ciągu roku. Jeżeli aplikacja pomogła by nawet spaść do 220kg (15kg w ciągu roku) marnowanego jedzenia na rok to ~5 757 843 mln polaków mogło by jeść normalnie codziennie przez rok za darmo. 235kg pomnożone przez każdego statystycznego polaka to ~8 925 300 000 mld ‬kg a 220kg żywności pomnożone przez Polaka to ~8 355 600 000‬ mld kg wyrzucanego jedzenia, czyli zaoszczędzilibyśmy ~569 700 000‬ mln kg jedzenia. Wiadomo że jest to tylko przybliżenie więc nie należy brać tych liczb dosłownie. Problemu globalnego nie da się od tak rozwiązać ponieważ jest to bardzo skomplikowany proces.
+Moim zdaniem gdy rozprzestrzeni się taką aplikację na cały świat będzie to rozwiązywało problemy globalne takie jak brak pieniędzy lub brak żywności. Powinniśmy zaczynać od mniejszych/większych miast lub krajów bo wtedy rozwiązuje to problem lokalny a nie globalny, gdy uzbiera się parę państw które będą korzystały z tej aplikacji, będzie rozwiązywać to problem globalny. Uważam że taki sposób podejścia do rozprzestrzeniania się tej aplikacji jest dobry. Zaczęcie od samej Polski będzie już dużym sukcesem ponieważ statystyczny polak marnuje 235 kg żywności w ciągu roku. Jeżeli aplikacja pomogła by nawet spaść do 220kg (15kg w ciągu roku) marnowanego jedzenia na rok to ~5 757 843 mln polaków mogło by jeść normalnie codziennie przez rok za darmo. 235kg pomnożone przez każdego statystycznego polaka to ~8 925 300 000 mld ‬kg a 220kg żywności pomnożone przez Polaka to ~8 355 600 000‬ mld kg wyrzucanego jedzenia, czyli zaoszczędzilibyśmy ~569 700 000‬ mln kg jedzenia. Wiadomo że jest to tylko przybliżenie więc nie należy brać tych liczb dosłownie. Problemu globalnego nie da się od tak rozwiązać ponieważ jest to bardzo skomplikowany proces.
 
 # Jak widzę dalszy rozwój tego projektu?
 Po zakończeniu [Hack Heroes]([http://hackheroes.pl/](http://hackheroes.pl/)) planuję dodać system czatu z osobami które wystawiają ogłoszenie. Będzie to wykorzystywało nową technologię [Azure SignalR Service]([https://azure.microsoft.com/pl-pl/services/signalr-service/](https://azure.microsoft.com/pl-pl/services/signalr-service/)), ciągle poprawiać wydajności kodu. Chciałbym także wystawić tą aplikację na rynek Google Play i nie długo później na App Store.
@@ -22,7 +35,12 @@ Jedyne ryzyko jakie widzę to takie że ludzie nie będą potrafić się odnosi�
 # Dlaczego akurat ja powinienem wygrać?  
 Ponieważ mam 16 lat programuję już od 2 lat i jest to moja pasja jak i zawód, wiąże z tym swoją przyszłość i chce jak najbardziej rozwijać otoczenie jak i samego siebie.
 
-
+# Rzeczy które są robione po 25, bo nie zdążyłem zrobić
+- Kompletne usunięcie Sql provider'a i zrobienie REST API
+- Testy 
+- Optymalizacja kodu
+- Kompletny wygląd
+- inne
 
 # Licencja 
 SharingFood jest na licencji GNU General Public License (GPL), możesz uruchamiać w dowolnym celu, dostosowywać go do swoich potrzeb, rozpowszechniać niezmodyfikowaną kopię programu, udoskonalać program i publicznie rozpowszechniać własne ulepszenia dzięki czemu może skorzystać z nich cała społeczność.
