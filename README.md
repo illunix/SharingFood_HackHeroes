@@ -11,9 +11,9 @@ Skonfiguruj swój emulator androida następnie skompiluj projekt w trybie debugo
 
 Aplikacja sama w sobie jest mega prosta w użytku, strona logowania -> strona główna (tam gdzie są posty).
 Navigation bar, trzy przyciski. 
-Pierwszy służy do filtrowania postów w zależności jakie miasto się wpisze w wyszukiwarkę. Ma tam być jeszcze funkcja w kodzie bodajże jest to ``GetNearCities`` która umożliwia przesuwanie paskiem w celu zmieniania odległości miast w naszym okręgu by właśnie z tych miast też mieć ogłoszenia, nie stety tego nie zaimplementowałem w 100% ponieważ nie miałem funduszy na dokumentacje [GeoDB](https://rapidapi.com/wirefreethought/api/geodb-cities) która właśnie umożliwia pokazywanie miast w pobliżu. 
+Pierwszy służy do filtrowania postów w zależności jakie miasto się wpisze w wyszukiwarkę. Ma tam być jeszcze funkcja w kodzie bodajże jest to ``GetNearCities`` która umożliwia przesuwanie paskiem w celu zmieniania odległości miast w okręgu użytkownika by właśnie z tych miast wyświetlać ogłoszenia, nie stety tego nie zaimplementowałem w 100% ponieważ nie miałem funduszy na dokumentacje [GeoDB](https://rapidapi.com/wirefreethought/api/geodb-cities) która właśnie umożliwia pokazywanie miast w pobliżu. 
 
-Drugi słóży do dodawania postów, trzeba podać tytuł ogłoszenia, opis (nie jest wymagany) i dodanie zdjęcia, jak narazie jest support tylko na 1 zdjęcie. T
+Drugi słóży do dodawania postów, trzeba podać tytuł ogłoszenia, opis (nie jest wymagany) i dodanie zdjęcia, jak narazie jest support tylko na 1 zdjęcie. 
 
 Trzeci służy do wyświetlania panelu użytkownika gdzie ma takie opcje jak: wyloguj lub zobacz moje posty. Nie wiem czy moje posty w tej wersji działają w każdym bądź razie w wersji która jest robiona ciągle to działa. 
 
