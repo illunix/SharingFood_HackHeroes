@@ -9,13 +9,18 @@ Załóżmy taki scenariusz, zamawiam ze znajomymi pizze, po zjedzeniu iluś tam 
 Otwórz projekt w [Visual Studio 2019](https://visualstudio.microsoft.com/).
 Skonfiguruj swój emulator androida następnie skompiluj projekt w trybie debugowania, wersja na IOS możliwe że nie działa.
 
-Aplikacja sama w sobie jest mega prosta w użytku, strona logowania -> strona główna (tam gdzie są posty).
-Navigation bar, trzy przyciski. 
+# Omówienie aktualnych funkcji aplikacji 
+Navigation bar który znajduje się na głównej stronie posiada trzy przyciski. 
+
 Pierwszy służy do filtrowania postów w zależności jakie miasto się wpisze w wyszukiwarkę. Ma tam być jeszcze funkcja w kodzie bodajże jest to ``GetNearCities`` która umożliwia przesuwanie paskiem w celu zmieniania odległości miast w okręgu użytkownika by właśnie z tych miast wyświetlać ogłoszenia, nie stety tego nie zaimplementowałem w 100% ponieważ nie miałem funduszy na dokumentacje [GeoDB](https://rapidapi.com/wirefreethought/api/geodb-cities) która właśnie umożliwia pokazywanie miast w pobliżu. 
 
 Drugi słóży do dodawania postów, trzeba podać tytuł ogłoszenia, opis (nie jest wymagany) i dodanie zdjęcia, jak narazie jest support tylko na 1 zdjęcie. 
 
 Trzeci służy do wyświetlania panelu użytkownika gdzie ma takie opcje jak: wyloguj lub zobacz moje posty. Nie wiem czy moje posty w tej wersji działają w każdym bądź razie w wersji która jest robiona ciągle to działa. 
+
+Gdy konto jest zaznaczone jako moderator w bazie danych, w aplikacji powinien być jeszcze jeden przycisk do akceptowania i odrzucania postów. Nie jestem pewien czy udało mi się to dokończyć.
+
+Gdy się kliknie na zdjęcie ogłoszenia przenosi ono użytkownika do okna kontaktu z osobą ogłaszającą, jest też tam zawarty cały opis ogłoszenia. Nie stety nie udało mi się tego ukończyć i jak narazie nie wyświetla tych informacji ale da się kliknąć.
 
 # Dlaczego moim zdaniem jest to problem globalny?
 Moim zdaniem gdy rozprzestrzeni się taką aplikację na cały świat będzie to rozwiązywało problemy globalne takie jak brak pieniędzy lub brak żywności. Powinniśmy zaczynać od mniejszych/większych miast lub krajów bo wtedy rozwiązuje to problem lokalny a nie globalny, gdy uzbiera się parę państw które będą korzystały z tej aplikacji, będzie rozwiązywać to problem globalny. Uważam że taki sposób podejścia do rozprzestrzeniania się tej aplikacji jest dobry. Zaczęcie od samej Polski będzie już dużym sukcesem ponieważ statystyczny polak marnuje 235 kg żywności w ciągu roku. Jeżeli aplikacja pomogła by nawet spaść do 220kg (15kg w ciągu roku) marnowanego jedzenia na rok to ~1,7 mln polaków mogło by jeść normalnie codziennie przez rok za darmo. 235kg pomnożone przez każdego statystycznego polaka to ~8 925 300 000 mld ‬kg a 220kg żywności pomnożone przez Polaka to ~8 355 600 000‬ mld kg wyrzucanego jedzenia, czyli zaoszczędzilibyśmy ~569 700 000‬ mln kg jedzenia. Wiadomo że jest to tylko przybliżenie więc nie należy brać tych liczb dosłownie. Problemu globalnego nie da się od tak rozwiązać ponieważ jest to bardzo skomplikowany proces.
