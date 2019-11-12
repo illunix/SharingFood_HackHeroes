@@ -7,7 +7,7 @@ Załóżmy taki scenariusz, zamawiam ze znajomymi pizze, po zjedzeniu iluś tam 
 
 # Instalacja
 Otwórz projekt w [Visual Studio 2019](https://visualstudio.microsoft.com/).
-Skonfiguruj swój emulator androida następnie skompiluj projekt w trybie debugowania, wersja na IOS możliwe że nie działa.
+Skonfiguruj swój emulator androida następnie skompiluj projekt w trybie debugowania na androida, wersja na IOS nie działa. Aplikacje należy odpalać tylko poprzez android emulator wbudowany w visual studio, nie należy zgrywać na telefon lub na emulatory takie jak nox czy bluestacks
 
 # Omówienie aktualnych funkcji aplikacji 
 Navigation bar który znajduje się na głównej stronie posiada trzy przyciski. 
